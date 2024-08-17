@@ -1,126 +1,104 @@
 <?php include('partials/menu.php'); ?>
 
-<div class="main-content">
-    <div class="wrapper">
-        <h1>Manage Order</h1>
-
-                <br/><br />
-
-                <?php 
-                    if(isset($_SESSION['update']))
-                    {
-                        echo $_SESSION['update'];
-                        unset($_SESSION['update']);
-                    }
-                ?>
-                
-
-                <table class="tbl-full">
-                    <thead>
-                    <tr>
-                        <th>S.N.</th>
-                        <th>Food</th>
-                        <th>Price</th>
-                        <th>Qty.</th>
-                        <th>Total</th>
-                        <th>Order Date</th>
-                        <th>Status</th>
-                        <th>Customer Name</th>
-                        <th>Contact</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    
-<tbody>
-<?php 
-                        //Get all the orders from database
-                        $sql = "SELECT * FROM tbl_order ORDER BY id DESC"; // DIsplay the Latest Order at First
-                        //Execute Query
-                        $res = mysqli_query($conn, $sql);
-                        //Count the Rows
-                        $count = mysqli_num_rows($res);
-
-                        $sn = 1; //Create a Serial Number and set its initail value as 1
-
-                        if($count>0)
-                        {
-                            //Order Available
-                            while($row=mysqli_fetch_assoc($res))
-                            {
-                                //Get all the order details
-                                $id = $row['id'];
-                                $food = $row['food'];
-                                $price = $row['price'];
-                                $qty = $row['qty'];
-                                $total = $row['total'];
-                                $order_date = $row['order_date'];
-                                $status = $row['status'];
-                                $customer_name = $row['customer_name'];
-                                $customer_contact = $row['customer_contact'];
-                                $customer_email = $row['customer_email'];
-                                $customer_address = $row['customer_address'];
-                                
-                                ?>
-
-                                    <tr>
-                                        <td><?php echo $sn++; ?>. </td>
-                                        <td><?php echo $food; ?></td>
-                                        <td><?php echo $price; ?></td>
-                                        <td><?php echo $qty; ?></td>
-                                        <td><?php echo $total; ?></td>
-                                        <td><?php echo $order_date; ?></td>
-
-                                        <td>
-                                            <?php 
-                                                // Ordered, On Delivery, Delivered, Cancelled
-
-                                                if($status=="Ordered")
-                                                {
-                                                    echo "<label>$status</label>";
-                                                }
-                                                elseif($status=="On Delivery")
-                                                {
-                                                    echo "<label style='color: orange;'>$status</label>";
-                                                }
-                                                elseif($status=="Delivered")
-                                                {
-                                                    echo "<label style='color: green;'>$status</label>";
-                                                }
-                                                elseif($status=="Cancelled")
-                                                {
-                                                    echo "<label style='color: red;'>$status</label>";
-                                                }
-                                            ?>
-                                        </td>
-
-                                        <td><?php echo $customer_name; ?></td>
-                                        <td><?php echo $customer_contact; ?></td>
-                                        <td><?php echo $customer_email; ?></td>
-                                        <td><?php echo $customer_address; ?></td>
-                                        <td>
-                                            <a href="<?php echo SITEURL; ?>admin/update-order.php?id=<?php echo $id; ?>" class="btn-secondary" id="updateorder-btn">Update</a>
-                                        </td>
-                                    </tr>
-
-                                <?php
-
-                            }
-                        }
-                        else
-                        {
-                            //Order not Available
-                            echo "<tr><td colspan='12' class='error'>Orders not Available</td></tr>";
-                        }
-                    ?>
-</tbody>
-                   
-
- 
-                </table>
+<div class="dashboard-container">
+    <div class="sidebar">
+        <div class="logo">
+        <h1>Bite.</h1>
+        </div>
+        <nav>
+            <a href="index.php"><i class="fas fa-home"></i> <span>Dashboard</span></a>
+            <a href="manage-admin.php"><i class="fas fa-users-cog"></i> <span>Admin</span></a>
+            <a href="manage-category.php"><i class="fas fa-list"></i> <span>Category</span></a>
+            <a href="manage-food.php"><i class="fas fa-utensils"></i> <span>Food</span></a>
+            <a href="manage-order.php" class="active"><i class="fas fa-shopping-cart"></i> <span>Order</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <i class="fas fa-user"></i>
+                <span><?php echo $_SESSION['user']; ?></span>
+            </div>
+            <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
     </div>
-    
+
+    <div class="main-content">
+        <h1 class="dashboard-title">
+            <span class="title-icon"><i class="fas fa-shopping-cart"></i></span>
+            Manage Orders
+        </h1>
+
+        <?php 
+            if(isset($_SESSION['update']))
+            {
+                echo '<div class="alert alert-info">' . $_SESSION['update'] . '</div>';
+                unset($_SESSION['update']);
+            }
+        ?>
+
+        <div class="admin-actions">
+            <!-- You can add an "Add Order" button here if needed -->
+        </div>
+
+        <div class="order-grid">
+            <?php 
+                $sql = "SELECT * FROM tbl_order ORDER BY id DESC";
+                $res = mysqli_query($conn, $sql);
+                $count = mysqli_num_rows($res);
+
+                if($count > 0)
+                {
+                    while($row = mysqli_fetch_assoc($res))
+                    {
+                        $id = $row['id'];
+                        $food = $row['food'];
+                        $price = $row['price'];
+                        $qty = $row['qty'];
+                        $total = $row['total'];
+                        $order_date = $row['order_date'];
+                        $status = $row['status'];
+                        $customer_name = $row['customer_name'];
+                        $customer_contact = $row['customer_contact'];
+                        $customer_email = $row['customer_email'];
+                        $customer_address = $row['customer_address'];
+                        ?>
+                        
+                        <div class="order-card">
+                            <div class="order-info">
+                                <h3><?php echo $food; ?></h3>
+                                <p>Price: Rs.<?php echo $price; ?></p>
+                                <p>Quantity: <?php echo $qty; ?></p>
+                                <p>Total: Rs.<?php echo $total; ?></p>
+                                <p>Order Date: <?php echo $order_date; ?></p>
+                                <p>
+    <span class="badge badge-<?php echo strtolower(str_replace(' ', '-', $status)); ?>">
+        <?php echo $status; ?>
+    </span>
+</p>
+                            </div>
+                            <div class="customer-info">
+                                <h4>Customer Details</h4>
+                                <p>Name: <?php echo $customer_name; ?></p>
+                                <p>Contact: <?php echo $customer_contact; ?></p>
+                                <p>Email: <?php echo $customer_email; ?></p>
+                                <p>Address: <?php echo $customer_address; ?></p>
+                            </div>
+                            <div class="order-actions">
+                                <a href="<?php echo SITEURL; ?>admin/update-order.php?id=<?php echo $id; ?>" class="btn-update"><i class="fas fa-edit"></i> Update</a>
+                            </div>
+                        </div>
+
+                        <?php
+                    }
+                }
+                else
+                {
+                    echo "<p class='no-orders'>No orders found.</p>";
+                }
+            ?>
+        </div>
+    </div>
 </div>
+
+<script src="js/admin.js"></script>
 
 <?php include('partials/footer.php'); ?>

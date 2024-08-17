@@ -71,7 +71,7 @@
             </a>
         </div>
 
-        <div class="admin-list">
+        <div class="admin-grid">
             <?php 
                 $sql = "SELECT * FROM tbl_admin";
                 $res = mysqli_query($conn, $sql);
@@ -90,23 +90,31 @@
                             ?>
                             
                             <div class="admin-card">
-                                <div class="admin-info">
-                                    <h3><?php echo $full_name; ?></h3>
-                                    <p>@<?php echo $username; ?></p>
-                                </div>
-                                <div class="admin-actions">
-                                    <a href="<?php echo SITEURL; ?>admin/update-password.php?id=<?php echo $id; ?>" class="btn-primary"><i class="fas fa-key"></i> Change Password</a>
-                                    <a href="<?php echo SITEURL; ?>admin/update-admin.php?id=<?php echo $id; ?>" class="btn-secondary"><i class="fas fa-edit"></i> Update Admin</a>
-                                    <a href="<?php echo SITEURL; ?>admin/delete-admin.php?id=<?php echo $id; ?>" class="btn-danger"><i class="fas fa-trash-alt"></i> Delete Admin</a>
-                                </div>
-                            </div>
-
+    <div class="admin-info">
+        <div class="admin-avatar">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <h3><?php echo $full_name; ?></h3>
+        <p>@<?php echo $username; ?></p>
+    </div>
+    <div class="admin-actions">
+        <a href="<?php echo SITEURL; ?>admin/update-password.php?id=<?php echo $id; ?>" class="btn-password">
+            <i class="fas fa-key"></i> Change Password
+        </a>
+        <a href="<?php echo SITEURL; ?>admin/update-admin.php?id=<?php echo $id; ?>" class="btn-update">
+            <i class="fas fa-edit"></i> Update Admin
+        </a>
+        <a href="<?php echo SITEURL; ?>admin/delete-admin.php?id=<?php echo $id; ?>" class="btn-delete">
+            <i class="fas fa-trash-alt"></i> Delete Admin
+        </a>
+    </div>
+</div>
                             <?php
                         }
                     }
                     else
                     {
-                        echo "<p>No admins found.</p>";
+                        echo "<p class='no-admins'>No admins found.</p>";
                     }
                 }
             ?>

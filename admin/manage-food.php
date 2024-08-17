@@ -1,15 +1,31 @@
 <?php include('partials/menu.php'); ?>
 
-<div class="main-content">
-    <div class="wrapper">
-        <h1>Manage Food</h1>
+<div class="dashboard-container">
+    <div class="sidebar">
+        <div class="logo">
+        <h1>Bite.</h1>
+        </div>
+        <nav>
+            <a href="index.php"><i class="fas fa-home"></i> <span>Dashboard</span></a>
+            <a href="manage-admin.php"><i class="fas fa-users-cog"></i> <span>Admin</span></a>
+            <a href="manage-category.php"><i class="fas fa-list"></i> <span>Category</span></a>
+            <a href="manage-food.php" class="active"><i class="fas fa-utensils"></i> <span>Food</span></a>
+            <a href="manage-order.php"><i class="fas fa-shopping-cart"></i> <span>Order</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <i class="fas fa-user"></i>
+                <span><?php echo $_SESSION['user']; ?></span>
+            </div>
+            <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
 
-        <br /><br />
-
-                <!-- Button to Add Admin -->
-                <a href="<?php echo SITEURL; ?>admin/add-food.php" class="btn-primary" id="addfood-btn">Add Food</a>
-
-                <br /><br /><br />
+    <div class="main-content">
+        <h1 class="dashboard-title">
+            <span class="title-icon"><i class="fas fa-utensils"></i></span>
+            Manage Foods
+        </h1>
 
                 <?php 
                     if(isset($_SESSION['add']))
@@ -43,95 +59,75 @@
                     }
                 
                 ?>
+ <div class="admin-actions">
+            <a href="add-food.php" class="btn-primary" id="addadmin-btn">
+                <i class="fas fa-plus"></i> Add Food
+            </a>
+        </div>
 
-                <table class="tbl-full">
-                    <thead>
-                    <tr>
-                        <th>S.N.</th>
-                        <th>Title</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                        <th>Featured</th>
-                        <th>Active</th>
-                        <th>Actions</th>
-                    </tr>
+        <div class="food-grid">
+            <?php 
+                $sql = "SELECT * FROM tbl_food";
+                $res = mysqli_query($conn, $sql);
+                $count = mysqli_num_rows($res);
 
-                    </thead>
-                    <tbody>
-                    <?php 
-                        //Create a SQL Query to Get all the Food
-                        $sql = "SELECT * FROM tbl_food";
-
-                        //Execute the qUery
-                        $res = mysqli_query($conn, $sql);
-
-                        //Count Rows to check whether we have foods or not
-                        $count = mysqli_num_rows($res);
-
-                        //Create Serial Number VAriable and Set Default VAlue as 1
-                        $sn=1;
-
-                        if($count>0)
-                        {
-                            //We have food in Database
-                            //Get the Foods from Database and Display
-                            while($row=mysqli_fetch_assoc($res))
-                            {
-                                //get the values from individual columns
-                                $id = $row['id'];
-                                $title = $row['title'];
-                                $price = $row['price'];
-                                $image_name = $row['image_name'];
-                                $featured = $row['featured'];
-                                $active = $row['active'];
-                                ?>
-
-                                <tr>
-                                    <td><?php echo $sn++; ?>. </td>
-                                    <td><?php echo $title; ?></td>
-                                    <td>Rs.<?php echo $price; ?></td>
-                                    <td>
-                                        <?php  
-                                            //CHeck whether we have image or not
-                                            if($image_name=="")
-                                            {
-                                                //WE do not have image, DIslpay Error Message
-                                                echo "<div class='error'>Image not Added.</div>";
-                                            }
-                                            else
-                                            {
-                                                //WE Have Image, Display Image
-                                                ?>
-                                                <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" width="100px">
-                                                <?php
-                                            }
+                if($count > 0)
+                {
+                    while($row = mysqli_fetch_assoc($res))
+                    {
+                        $id = $row['id'];
+                        $title = $row['title'];
+                        $price = $row['price'];
+                        $image_name = $row['image_name'];
+                        $featured = $row['featured'];
+                        $active = $row['active'];
+                        ?>
+                        
+                        <div class="food-card">
+                            <div class="food-image">
+                                <?php 
+                                    if($image_name == "")
+                                    {
+                                        echo "<div class='no-image'>No Image</div>";
+                                    }
+                                    else
+                                    {
                                         ?>
-                                    </td>
-                                    <td><?php echo $featured; ?></td>
-                                    <td><?php echo $active; ?></td>
-                                    <td>
-                                        <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-secondary">Update Food</a>
-                                        <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-danger">Delete Food</a>
-                                    </td>
-                                </tr>
+                                        <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="<?php echo $title; ?>">
+                                        <?php
+                                    }
+                                ?>
+                            </div>
+                            <div class="food-info">
+                                <h3><?php echo $title; ?></h3>
+                                <p class="price">Rs. <?php echo $price; ?></p>
+                                <p>
+                                    <span class="badge <?php echo $featured == 'Yes' ? 'badge-featured' : ''; ?>">
+                                        <?php echo $featured == 'Yes' ? 'Featured' : 'Not Featured'; ?>
+                                    </span>
+                                    <span class="badge <?php echo $active == 'Yes' ? 'badge-active' : ''; ?>">
+                                        <?php echo $active == 'Yes' ? 'Active' : 'Inactive'; ?>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="food-actions">
+                                <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-update"><i class="fas fa-edit"></i> Update</a>
+                                <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-delete"><i class="fas fa-trash-alt"></i> Delete</a>
+                            </div>
+                        </div>
 
-                                <?php
-                            }
-                        }
-                        else
-                        {
-                            //Food not Added in Database
-                            echo "<tr> <td colspan='7' class='error'> Food not Added Yet. </td> </tr>";
-                        }
-
-                    ?>
-                    </tbody>
-                   
-
-                    
-                </table>
+                        <?php
+                    }
+                }
+                else
+                {
+                    echo "<p class='no-foods'>No foods found.</p>";
+                }
+            ?>
+        </div>
     </div>
-    
 </div>
+
+<script src="js/admin.js"></script>
 
 <?php include('partials/footer.php'); ?>
