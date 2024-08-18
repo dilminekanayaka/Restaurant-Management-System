@@ -36,7 +36,7 @@
         ?>
 
         <div class="admin-actions">
-            <!-- You can add an "Add Order" button here if needed -->
+            
         </div>
 
         <div class="order-grid">

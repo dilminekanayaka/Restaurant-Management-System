@@ -1,29 +1,29 @@
 <?php 
 include('partials-front/menu.php');
 
-// Initialize $search
+
 $search = '';
 
-// Check if the search form was submitted
+
 if(isset($_POST['search'])) {
-    // Get the Search Keyword
+   
     $search = mysqli_real_escape_string($conn, $_POST['search']);
 } elseif(isset($_GET['search'])) {
-    // If the search parameter is in the URL (for GET requests)
+    
     $search = mysqli_real_escape_string($conn, $_GET['search']);
 }
 
-// Initialize $count
+
 $count = 0;
 
 if(!empty($search)) {
-    //SQL Query to Get foods based on search keyword
+   
     $sql = "SELECT * FROM tbl_food WHERE title LIKE '%$search%' OR description LIKE '%$search%'";
 
-    //Execute the Query
+    
     $res = mysqli_query($conn, $sql);
 
-    //Count Rows
+  
     $count = mysqli_num_rows($res);
 }
 ?>
@@ -45,7 +45,7 @@ if(!empty($search)) {
     </div>
 </header>
 
-<!-- fOOD sEARCH Section Starts Here -->
+
 <section class="food-search">
     <div class="container">
         <div class="search-results-container">
@@ -58,9 +58,9 @@ if(!empty($search)) {
         </div>
     </div>
 </section>
-<!-- fOOD sEARCH Section Ends Here -->
 
-<!-- fOOD MEnu Section Starts Here -->
+
+
 <section class="food-menu">
     <div class="container">
         <h2 class="section-title">Food Menu</h2>
@@ -92,7 +92,7 @@ if(!empty($search)) {
         </div>
     </div>
 </section>
-<!-- fOOD Menu Section Ends Here -->
+
 
 <?php include('partials-front/footer.php'); ?>
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     animateCount();
 
-    // Animate search term
+
     const searchTerm = document.querySelector('.search-term');
     searchTerm.innerHTML = searchTerm.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 

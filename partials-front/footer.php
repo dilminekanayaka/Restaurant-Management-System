@@ -8,9 +8,9 @@
         <div class="footer-content">
             <div class="footer-section about">
                 <h3>Bite</h3>
-                <p>Delivering delicious food to your doorstep.</p>
+                <p class="about-text">Delivering delicious food to your doorstep with passion and precision.</p>
                 <div class="contact">
-                    <span><i class="fas fa-phone"></i> +1 234 567 8900</span> <br>
+                    <span><i class="fas fa-phone"></i> +1 234 567 8900</span>
                     <span><i class="fas fa-envelope"></i> info@bite.com</span>
                 </div>
             </div>
@@ -18,9 +18,9 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="about.php">About</a></li>
                     <li><a href="foods.php">Menu</a></li>
                     <li><a href="contact.php">Contact</a></li>
+                    <li><a href="feedback.php">Feedback</a></li>
                 </ul>
             </div>
             <div class="footer-section social">
@@ -29,7 +29,7 @@
                     <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                  
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
@@ -79,20 +79,45 @@
 .footer-section {
     flex: 1;
     min-width: 150px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .footer-section h3 {
     color: #ffd166;
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     position: relative;
 }
 
-.footer-section p,
-.footer-section span {
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: #ffd166;
+}
+
+.footer-section.about .about-text {
     font-size: 15px;
-    line-height: 1.4;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #f9f9f9;
+}
+
+.footer-section.about .contact span {
+    display: block;
     margin-bottom: 5px;
+    font-size: 14px;
+    color: #f0f0f0;
+}
+
+.footer-section.about .contact i {
+    margin-right: 8px;
+    color: #ffd166;
 }
 
 .footer-section.quick-links ul {
@@ -101,48 +126,50 @@
 }
 
 .footer-section.quick-links ul li {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .footer-section.quick-links ul li a {
-    color: #fff;
+    color: #f0f0f0;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
 }
 
 .footer-section.quick-links ul li a:hover {
     color: #ffd166;
+    transform: translateX(5px);
 }
 
 .social-icons {
     display: flex;
-    gap: 10px;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
 }
 
 .social-icon {
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    font-size: 14px;
+    background-color: #ff6b6b;
+    color: #ffffff;
+    font-size: 18px;
+    text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .social-icon:hover {
-    background-color: #ff6b6b;
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
 }
 
 .footer-bottom {
     text-align: center;
-    padding-top: 10px;
-    margin-top: 20px;
+    padding-top: 20px;
+    margin-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 12px;
 }
@@ -154,6 +181,7 @@
     
     .footer-section {
         width: 100%;
+        margin-bottom: 30px;
     }
 }
 </style>
@@ -184,12 +212,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initial animation
+   
     animateFooter();
 
-    // Animate on scroll
+    
     window.addEventListener('scroll', animateFooter);
+
+    const socialIcons = document.querySelectorAll('.social-icon');
+    socialIcons.forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+            icon.style.transform = 'translateY(-5px) scale(1.1)';
+        });
+        icon.addEventListener('mouseleave', () => {
+            icon.style.transform = 'translateY(0) scale(1)';
+        });
+    });
 });
 </script>
-</body>
-</html>

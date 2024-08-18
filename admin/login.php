@@ -1,11 +1,11 @@
 <?php 
 include('../config/constants.php');
 
-// Initialize variables to store messages
+
 $login_message = '';
 $no_login_message = '';
 
-// Process login
+
 if(isset($_POST['submit']))
 {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -21,7 +21,7 @@ if(isset($_POST['submit']))
         $_SESSION['login'] = "<div class='success'>Login Successful.</div>";
         $_SESSION['user'] = $username;
         header('location:'.SITEURL.'admin/');
-        exit(); // Make sure to exit after redirect
+        exit(); 
     }
     else
     {
@@ -29,7 +29,6 @@ if(isset($_POST['submit']))
     }
 }
 
-// Check for existing messages
 if(isset($_SESSION['login']))
 {
     $login_message = $_SESSION['login'];
@@ -65,7 +64,8 @@ if(isset($_SESSION['no-login-message']))
             min-height: 100vh;
             background: linear-gradient(135deg, #f18930, #ff6b6b);
             overflow: hidden;
-        }
+            position: relative;
+            }
         
         .login-container {
             background: rgba(255, 255, 255, 0.9);
@@ -224,6 +224,39 @@ if(isset($_SESSION['no-login-message']))
             color: #2ed573;
         }
         
+
+.animated-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.animated-background span {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: move 3s linear infinite;
+    border-radius: 50%;
+}
+
+@keyframes move {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -231,6 +264,18 @@ if(isset($_SESSION['no-login-message']))
     </style>
 </head>
 <body>
+<div class="animated-background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <div class="login-container">
         <i class="fas fa-utensils login-icon"></i>
         <h1>Admin Login</h1>
@@ -256,7 +301,7 @@ if(isset($_SESSION['no-login-message']))
     </div>
 
     <script>
-       // Add animation to form inputs
+       
        const inputs = document.querySelectorAll('.input-group input');
         inputs.forEach(input => {
             input.addEventListener('focus', () => {
@@ -269,7 +314,7 @@ if(isset($_SESSION['no-login-message']))
             });
         });
 
-        // Add ripple effect to login button
+        
         const loginBtn = document.querySelector('.btn-login');
         loginBtn.addEventListener('click', function(e) {
             let x = e.clientX - e.target.offsetLeft;
@@ -284,6 +329,21 @@ if(isset($_SESSION['no-login-message']))
                 ripple.remove();
             }, 600);
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const background = document.querySelector('.animated-background');
+    const spans = background.querySelectorAll('span');
+
+    spans.forEach(span => {
+        const size = Math.random() * 50 + 10; 
+        span.style.width = `${size}px`;
+        span.style.height = `${size}px`;
+        span.style.top = `${Math.random() * 100}%`;
+        span.style.left = `${Math.random() * 100}%`;
+        span.style.animationDuration = `${Math.random() * 2 + 2}s`; 
+        span.style.animationDelay = `${Math.random() * 2}s`;
+    });
+});
     </script>
 </body>
 </html>

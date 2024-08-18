@@ -1,5 +1,5 @@
 <?php 
-include('partials-front/menu.php'); // Include database connection
+include('partials-front/menu.php'); 
 ?>
 
 <style>
@@ -282,7 +282,7 @@ include('partials-front/menu.php'); // Include database connection
 <script>
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        // Here you would typically send the form data to a server
+    
         alert('Thank you for your message. We will get back to you soon!');
         this.reset();
     });

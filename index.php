@@ -1,5 +1,5 @@
 <?php 
-include('partials-front/menu.php'); // Include database connection
+include('partials-front/menu.php'); 
 ?>
 
 <header class="main-header">
@@ -101,7 +101,7 @@ include('partials-front/menu.php'); // Include database connection
                         }
                         ?>
                         <h3 class="food-title"><?php echo $title; ?></h3>
-                        <p class="food-price">$<?php echo $price; ?></p>
+                        <p class="food-price">Rs.<?php echo $price; ?></p>
                         <p class="food-description"><?php echo $description; ?></p>
                         <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order Now</a>
                     </div>

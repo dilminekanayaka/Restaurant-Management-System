@@ -1,7 +1,7 @@
 <?php include('partials-front/menu.php'); ?>
 
 <?php 
-    //Check whether id is passed or not
+
     if(isset($_GET['category_id']))
     {
         $category_id = $_GET['category_id'];
@@ -15,7 +15,7 @@
         header('location:'.SITEURL);
     }
 
-    //Count the number of foods in this category
+    
     $sql2 = "SELECT * FROM tbl_food WHERE category_id=$category_id";
     $res2 = mysqli_query($conn, $sql2);
     $count2 = mysqli_num_rows($res2);
@@ -37,7 +37,7 @@
     </div>
 </header>
 
-<!-- Category Search Section Starts Here -->
+
 <section class="food-search">
     <div class="container">
         <div class="search-results-container">
@@ -50,9 +50,9 @@
         </div>
     </div>
 </section>
-<!-- Category Search Section Ends Here -->
 
-<!-- Food Menu Section Starts Here -->
+
+
 <section class="food-menu">
     <div class="container">
         <h2 class="section-title">Food Menu</h2>
@@ -99,7 +99,7 @@
         </div>
     </div>
 </section>
-<!-- Food Menu Section Ends Here -->
+
 
 <?php include('partials-front/footer.php'); ?>
 
@@ -129,7 +129,7 @@
 
         animateCount();
 
-        // Animate search term
+   
         const searchTerm = document.querySelector('.search-term');
         searchTerm.innerHTML = searchTerm.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 

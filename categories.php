@@ -41,7 +41,7 @@ include('partials-front/menu.php');
                     $id = $row['id'];
                     $title = $row['title'];
                     $image_name = $row['image_name'];
-                    $date_modified = $row['date_modified']; // Assuming you have this column in your table
+                    $date_modified = $row['date_modified']; 
             ?>
                     <div class="category-item" data-name="<?php echo $title; ?>" data-date="<?php echo $date_modified; ?>">
                         <a href="<?php echo SITEURL; ?>category-foods.php?category_id=<?php echo $id; ?>">

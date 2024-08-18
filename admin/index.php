@@ -34,22 +34,22 @@
                 unset($_SESSION['login']);
             }
      
-            // Categories count
+            
             $sql = "SELECT * FROM tbl_category";
             $res = mysqli_query($conn, $sql);
             $count = mysqli_num_rows($res);
 
-            // Foods count
+            
             $sql2 = "SELECT * FROM tbl_food";
             $res2 = mysqli_query($conn, $sql2);
             $count2 = mysqli_num_rows($res2);
 
-            // Orders count
+            
             $sql3 = "SELECT * FROM tbl_order";
             $res3 = mysqli_query($conn, $sql3);
             $count3 = mysqli_num_rows($res3);
 
-            // Total Revenue
+            
             $sql4 = "SELECT SUM(total) AS Total FROM tbl_order WHERE status='Delivered'";
             $res4 = mysqli_query($conn, $sql4);
             $row4 = mysqli_fetch_assoc($res4);
@@ -93,7 +93,7 @@
         <div class="recent-activity">
             <h2>Recent Activity</h2>
             <ul id="activity-list">
-                <!-- Activity items will be dynamically added here -->
+                
             </ul>
         </div>
     </div>

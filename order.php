@@ -1,8 +1,8 @@
 <?php
-ob_start(); // Start output buffering
+ob_start(); 
 include('partials-front/menu.php');
 
-// Check whether food id is set or not
+
 if(isset($_GET['food_id'])) {
     $food_id = $_GET['food_id'];
     $sql = "SELECT * FROM tbl_food WHERE id=$food_id";
@@ -22,9 +22,9 @@ if(isset($_GET['food_id'])) {
     exit();
 }
 
-// Process form submission
+
 if(isset($_POST['submit'])) {
-    // Get all the details from the form
+    
     $food = $_POST['food'];
     $price = $_POST['price'];
     $qty = $_POST['qty'];
@@ -36,7 +36,7 @@ if(isset($_POST['submit'])) {
     $customer_email = $_POST['email'];
     $customer_address = $_POST['address'];
 
-    // Save the Order in Database
+   
     $sql2 = "INSERT INTO tbl_order SET 
         food = '$food',
         price = $price,
@@ -64,22 +64,21 @@ if(isset($_POST['submit'])) {
 }
 
 if(isset($_POST['submit'])) {
-    // ... (previous order processing code remains the same)
 
     $res2 = mysqli_query($conn, $sql2);
 
     if($res2==true) {
         $_SESSION['order'] = "<div class='success text-center'>Food Ordered Successfully.</div>";
-        echo "<script>var orderSuccess = true;</script>"; // Set a JavaScript flag
+        echo "<script>var orderSuccess = true;</script>"; 
     } else {
         $_SESSION['order'] = "<div class='error text-center'>Failed to Order Food.</div>";
-        echo "<script>var orderSuccess = false;</script>"; // Set a JavaScript flag
+        echo "<script>var orderSuccess = false;</script>"; 
     }
 }
 
 ?>
 
-<!-- HTML content starts here -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,7 +125,7 @@ if(isset($_POST['submit'])) {
             </div>
             <div class="order-details" data-aos="fade-left">
                 <h3><?php echo $title; ?></h3>
-                <p class="food-price">$<?php echo $price; ?></p>
+                <p class="food-price">Rs.<?php echo $price; ?></p>
                 
                 <form action="" method="POST" class="order-form">
                     <div class="form-group">
@@ -188,7 +187,7 @@ function closePopup() {
     });
 }
 
-// Close popup when clicking outside of it
+
 window.onclick = function(event) {
     const popups = document.querySelectorAll('.popup');
     popups.forEach(popup => {
@@ -214,7 +213,7 @@ function closePopup() {
     document.getElementById('orderPopup').style.display = 'none';
 }
 
-// Check if order was successful and show popup
+
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof orderSuccess !== 'undefined') {
         if (orderSuccess) {
@@ -238,5 +237,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 <?php
-ob_end_flush(); // End output buffering and send output
+ob_end_flush(); 
 ?>

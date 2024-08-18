@@ -214,7 +214,6 @@ nav ul li a:hover {
     text-decoration: none;
 }
 
-
 /* Menu Grid */
 .menu-grid {
     display: grid;
@@ -280,7 +279,6 @@ nav ul li a:hover {
     margin-top: 5vh;
 }
 
-
 /* Categories Section */
 .categories {
     padding: 80px 0;
@@ -301,16 +299,28 @@ nav ul li a:hover {
 }
 
 .sort-btn {
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    border: none;
     padding: 10px 15px;
     margin: 0 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .sort-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #ff6b6b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.sort-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .category-grid {
@@ -340,13 +350,15 @@ nav ul li a:hover {
 .category-title {
     padding: 15px;
     text-align: center;
-    font-size: 18px;
-    color: #333;
+    font-size: 20px;
     margin: 0;
+    text-decoration: none;
+    color: #333;
 }
 
-
-
+.category-item a {
+    text-decoration: none;
+}
 
 /* Food Search Section */
 .food-search {
@@ -754,7 +766,9 @@ nav ul li a:hover {
 .btn-primary:hover {
     background-color: #ff5252;
 }
+
 /* Food Search Styles */
+
 .food-search {
     background-color: #f9f9f9;
     padding: 60px 0;
@@ -781,6 +795,7 @@ nav ul li a:hover {
 }
 
 /* Food Menu Styles */
+
 .food-menu {
     padding: 60px 0;
     background-color: #fff;
@@ -864,6 +879,7 @@ nav ul li a:hover {
 }
 
 /* Modern Search Results Styles */
+
 .food-search {
     background-color: #f8f9fa;
     padding: 60px 0;
@@ -882,6 +898,7 @@ nav ul li a:hover {
 
 
 /* Responsive design */
+
 @media (max-width: 1024px) {
     .category-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -911,6 +928,7 @@ nav ul li a:hover {
 }
 
 /* Animations */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;

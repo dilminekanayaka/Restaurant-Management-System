@@ -39,7 +39,7 @@ include('partials-front/menu.php');
         <h2 class="section-title">Trending Foods</h2>
         <div class="trending-grid">
             <?php
-            // Fetch 3 random foods for trending section
+           
             $trending_sql = "SELECT * FROM tbl_food WHERE active='Yes' ORDER BY RAND() LIMIT 3";
             $trending_res = mysqli_query($conn, $trending_sql);
             while($trending_row = mysqli_fetch_assoc($trending_res)) {
