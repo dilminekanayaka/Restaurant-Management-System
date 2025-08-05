@@ -4,11 +4,11 @@
 
 
     
-    define('SITEURL', 'http://localhost/food-order/');
+    define('SITEURL', 'http://localhost/Restaurant-Management-System/');
     define('LOCALHOST', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
-    define('DB_NAME', 'food-order');
+    define('DB_NAME', 'Restaurant-Management-System');
     
     $conn = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD) or die(mysqli_error()); 
     
